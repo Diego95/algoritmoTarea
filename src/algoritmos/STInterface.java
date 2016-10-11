@@ -9,7 +9,7 @@ package algoritmos;
  *
  * @author Ariel
  */
-public interface ST <Key extends Comparable<Key>,Value>
+public interface STInterface <Key extends Comparable<Key>,Value>
 {
     public void put(Key key,Value value);
     public Value get(Key key);
