@@ -16,7 +16,7 @@ public class TablaSimbolos  implements STInterface<Date,Object>
     private Nodo root;
     public TablaSimbolos()
     {
-        
+       this.root = null; 
     }
     class Nodo
     {
@@ -58,7 +58,31 @@ public class TablaSimbolos  implements STInterface<Date,Object>
 
     @Override
     public void put(Date key, Object value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (this.root==null)
+        {
+            this.root = new Nodo(key,(String)value);
+            this.root.setNext(null);
+        }
+        else if(key.compareTo(this.root.getDate())<0)
+        {
+            Nodo aux = this.root;
+            this.root = new Nodo(key,(String)value);
+            this.root.setNext(aux);
+        }
+        else
+        {
+            
+            for(Nodo aux=this.root;aux.getNext()!=null;aux=aux.getNext())
+            {
+                
+                if(key.compareTo(aux.getNext().getDate())<0&&aux.getNext()!=null)
+                {
+                    Nodo aux2 = aux.getNext();
+                    aux.setNext(new Nodo(key,(String)value));
+                    aux.getNext().setNext(aux2);
+                }
+            }
+        }
     }
 
     @Override
@@ -78,7 +102,7 @@ public class TablaSimbolos  implements STInterface<Date,Object>
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.root==null;
     }
 
     @Override
